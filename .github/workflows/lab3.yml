@@ -1,0 +1,25 @@
+name: Lab 3 CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "**" ]  # Run on push to any branch
+
+jobs:
+  basic-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Print basic information
+        run: |
+          echo "🎬 Workflow triggered by: ${{ github.event_name }}"
+          echo "🔀 Branch: ${{ github.ref_name }}"
+          echo "💻 Runner OS: ${{ runner.os }}"
+          echo "📅 Current date: $(date)"
+          echo "👤 Triggered by: ${{ github.actor }}"
+          
+      - name: List repository files
+        run: |
+          echo "📁 Repository contents:"
+          ls -la
