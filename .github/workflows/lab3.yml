@@ -3,6 +3,7 @@ name: Lab 3 CI/CD Pipeline
 on:
   push:
     branches: [ "**" ]  # Run on push to any branch
+  workflow_dispatch:     # Allow manual triggering
 
 jobs:
   basic-info:
@@ -23,3 +24,36 @@ jobs:
         run: |
           echo "📁 Repository contents:"
           ls -la
+
+  system-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect System Information
+        run: |
+          echo "## 🖥️ SYSTEM INFORMATION"
+          echo "### Operating System"
+          uname -a
+          echo ""
+          echo "### CPU Information"
+          nproc
+          echo "CPU Cores: $(nproc)"
+          echo ""
+          echo "### Memory Information"
+          free -h
+          echo ""
+          echo "### Disk Information"
+          df -h
+          echo ""
+          echo "### Current User"
+          whoami
+          echo ""
+          echo "### Environment Variables"
+          echo "Runner OS: ${{ runner.os }}"
+          echo "Runner Temp Directory: ${{ runner.temp }}"
+          echo "Runner Tool Cache: ${{ runner.tool_cache }}"
+          echo ""
+          echo "### GitHub Context"
+          echo "Repository: ${{ github.repository }}"
+          echo "Workflow: ${{ github.workflow }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Run Number: ${{ github.run_number }}"
